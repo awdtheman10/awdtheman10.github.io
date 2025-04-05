@@ -63,6 +63,7 @@ window.onload = function () {
       ball.upgradePower();
     }
     updateShop();
+    updateMoneyCounter();
   }
 
   // Update the money counter display
@@ -78,13 +79,9 @@ window.onload = function () {
 
     balls.forEach(ball => {
       const ballContainer = document.createElement('div');
-      const button = document.createElement('button');
-      button.innerText = `${ball.type} - Price: ${shopItems[ball.type].price} Coins`;
-      button.onclick = () => buyBall(ball.type);
-      if (money < shopItems[ball.type].price) {
-        button.disabled = true;
-      }
-      ballContainer.appendChild(button);
+      const ballLabel = document.createElement('p');
+      ballLabel.innerText = `${ball.type} - Speed: ${ball.speed} Power: ${ball.power}`;
+      ballContainer.appendChild(ballLabel);
 
       // Add upgrade buttons for the ball
       if (ball.upgrades.speed.isUpgradable) {
@@ -103,6 +100,12 @@ window.onload = function () {
 
       shopContainer.appendChild(ballContainer);
     });
+  }
+
+  // Show/Hide the shop GUI when "Shop" button is clicked
+  function toggleShop() {
+    const shopContainer = document.getElementById('shop');
+    shopContainer.style.display = shopContainer.style.display === 'none' ? 'block' : 'none';
   }
 
   // Main game loop
@@ -128,4 +131,21 @@ window.onload = function () {
   // Initialize the shop and money display
   updateShop();
   updateMoneyCounter();
+
+  // Create Shop button
+  const shopButton = document.createElement('button');
+  shopButton.innerText = 'Shop';
+  shopButton.onclick = toggleShop;
+  document.body.appendChild(shopButton);
+
+  // Create Money Counter display
+  const moneyCounter = document.createElement('div');
+  moneyCounter.id = 'moneyCounter';
+  document.body.appendChild(moneyCounter);
+
+  // Create Shop Container (initially hidden)
+  const shopContainer = document.createElement('div');
+  shopContainer.id = 'shop';
+  shopContainer.style.display = 'none';  // Hidden initially
+  document.body.appendChild(shopContainer);
 };
