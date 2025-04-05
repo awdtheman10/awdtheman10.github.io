@@ -104,7 +104,13 @@ function buyBall(type) {
         money -= shopItems[type].price;
         balls.push(new Ball(type, 1, 1, 'rgb(0,255,255)', shopItems[type].upgrades));
         updateShop();
+        updateMoneyCounter();
     }
+}
+
+function updateMoneyCounter() {
+    const moneyCounter = document.getElementById('moneyCounter');
+    moneyCounter.innerText = `Money: ${money}`;
 }
 
 function updateShop() {
@@ -114,10 +120,14 @@ function updateShop() {
         const button = document.createElement('button');
         button.innerText = `${ballType} - Price: ${shopItems[ballType].price} Coins`;
         button.onclick = () => buyBall(ballType);
+        if (money < shopItems[ballType].price) {
+            button.disabled = true;
+        }
         shopContainer.appendChild(button);
     });
 }
 
 window.onload = function() {
     updateShop();
+    updateMoneyCounter();
 };
