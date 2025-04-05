@@ -74,29 +74,39 @@ window.onload = function () {
 
   // Update the shop UI with available items
   function updateShop() {
-    const shopContainer = document.getElementById('shop');
-    shopContainer.innerHTML = '';
+    const shopContainer = document.getElementById('shopItems');
+    shopContainer.innerHTML = '';  // Clear the shop items display
 
-    balls.forEach(ball => {
+    Object.keys(shopItems).forEach(type => {
       const ballContainer = document.createElement('div');
       const ballLabel = document.createElement('p');
-      ballLabel.innerText = `${ball.type} - Speed: ${ball.speed} Power: ${ball.power}`;
+      ballLabel.innerText = `${type} - Price: ${shopItems[type].price}`;
       ballContainer.appendChild(ballLabel);
 
-      // Add upgrade buttons for the ball
-      if (ball.upgrades.speed.isUpgradable) {
-        const upgradeSpeedButton = document.createElement('button');
-        upgradeSpeedButton.innerText = 'Upgrade Speed';
-        upgradeSpeedButton.onclick = () => upgradeBall(ball, 'speed');
-        ballContainer.appendChild(upgradeSpeedButton);
-      }
+      // Add buy button for the ball
+      const buyButton = document.createElement('button');
+      buyButton.innerText = `Buy ${type}`;
+      buyButton.onclick = () => buyBall(type);
+      ballContainer.appendChild(buyButton);
 
-      if (ball.upgrades.power.isUpgradable) {
-        const upgradePowerButton = document.createElement('button');
-        upgradePowerButton.innerText = 'Upgrade Power';
-        upgradePowerButton.onclick = () => upgradeBall(ball, 'power');
-        ballContainer.appendChild(upgradePowerButton);
-      }
+      // Add upgrade buttons for the ball
+      balls.forEach(ball => {
+        if (ball.type === type) {
+          if (ball.upgrades.speed.isUpgradable) {
+            const upgradeSpeedButton = document.createElement('button');
+            upgradeSpeedButton.innerText = 'Upgrade Speed';
+            upgradeSpeedButton.onclick = () => upgradeBall(ball, 'speed');
+            ballContainer.appendChild(upgradeSpeedButton);
+          }
+
+          if (ball.upgrades.power.isUpgradable) {
+            const upgradePowerButton = document.createElement('button');
+            upgradePowerButton.innerText = 'Upgrade Power';
+            upgradePowerButton.onclick = () => upgradeBall(ball, 'power');
+            ballContainer.appendChild(upgradePowerButton);
+          }
+        }
+      });
 
       shopContainer.appendChild(ballContainer);
     });
