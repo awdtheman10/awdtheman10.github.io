@@ -2,84 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Brick Breaker Infinite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ball Shop Game</title>
   <style>
     body {
-      background-color: #111;
-      color: #eee;
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background-color: #f0f0f0;
+      text-align: center;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
 
-    #buttonContainer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .ball-button {
-      background-color: #333;
-      border: 1px solid #555;
-      color: #fff;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: 0.2s ease;
-    }
-
-    .ball-button:hover {
-      background-color: #444;
-    }
-
-    #gameArea {
-      position: relative;
-      width: 800px;
-      height: 600px;
-      background-color: #222;
-      border: 2px solid #555;
-      overflow: hidden;
-    }
-
-    .ball {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-    }
-
-    #shop {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 10px;
-      border-radius: 8px;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-
-    #moneyCounter {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 10px;
-      border-radius: 8px;
-      color: white;
-      font-family: Arial, sans-serif;
+    #gameCanvas {
+      background-color: #fff;
+      border: 2px solid #000;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     button {
-      margin: 5px;
-      padding: 10px;
       background-color: #4CAF50;
       border: none;
       color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px;
       cursor: pointer;
       border-radius: 5px;
     }
@@ -87,18 +39,60 @@
     button:hover {
       background-color: #45a049;
     }
+
+    #shop {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: none;
+    }
+
+    #moneyCounter {
+      font-size: 18px;
+      margin: 20px;
+      color: #333;
+    }
+
+    .ballContainer {
+      margin-bottom: 15px;
+      background-color: #444;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    .ballContainer p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+
+    .ballContainer button {
+      margin: 5px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
-  <h1>Brick Breaker Infinite</h1>
-  <div id="buttonContainer"></div>
-  <div id="gameArea">
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+  <!-- Money Counter -->
+  <div id="moneyCounter">Money: 20</div>
+
+  <!-- Game Canvas -->
+  <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+  <!-- Shop Button -->
+  <button id="shopButton">Shop</button>
+
+  <!-- Shop Container -->
+  <div id="shop">
+    <h2>Shop</h2>
+    <div id="shopItems"></div>
   </div>
 
-  <div id="moneyCounter">Money: 20</div>
-  <div id="shop"></div>
-
-  <script type="module" src="Engine/Engine.js"></script>
+  <script src="Engine.js"></script>
 </body>
 </html>
